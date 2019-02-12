@@ -23,6 +23,34 @@ namespace HelloWorld
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        Random _random = new Random();
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hello World!");
+            Button neuerButton = new Button();
+            neuerButton.Content = "Click mich bitte auch";
+            neuerButton.HorizontalAlignment = (HorizontalAlignment)_random.Next(0, 4);
+            neuerButton.VerticalAlignment = (VerticalAlignment)_random.Next(0, 4);
+            neuerButton.Click += NeuerButton_Click;
+            neuerButton.Margin = new Thickness(10, 0, 0, 0);
+            //Parser nutzt den Typeconverter:
+            //neuerButton.Margin = (Thickness) new ThicknessConverter().ConvertFromString("10 0 0 0");
+
+            grid1.Children.Add(neuerButton);
+        }
+
+        private void NeuerButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Neuer Button wurde geklickt");
+        }
+
+        private void Dummy_Button_Click(object sender, RoutedEventArgs e)
+        {
+            button2.Visibility = Visibility.Visible;
         }
     }
 }

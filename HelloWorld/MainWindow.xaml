@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HelloWorld"
+        xmlns:helper="clr-namespace:HelloWorld.Helper"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <!--Content-Property von Window: Content-->
+    <!--Grid grid = new Grid();-->
+    <!--grid.Background = Brushes.Beige;-->
+    <!--Content-Property von Grid ist Children, implementiert IList -->
+    <Grid Background="Beige" Name="grid1">
+        <!--grid.Children.Add(new Button());-->
+        <Button Click="Button_Click" 
+                HorizontalAlignment="Center" 
+                Content="Click mich"
+                VerticalAlignment="Center">
+            <!--Content-Property von Button: Content-->
+        </Button>
+        <Button Name="button2" Padding="5" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Image Height="50"  Source="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Wappen_Cottbus.svg/198px-Wappen_Cottbus.svg.png" />
+                <TextBlock Margin="10, 0, 10, 0" VerticalAlignment="Center">Beschriftung</TextBlock>
+            </StackPanel> 
+        </Button>
+        <Button Click="Dummy_Button_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <local:Dummy></local:Dummy>
+        </Button>
     </Grid>
 </Window>
