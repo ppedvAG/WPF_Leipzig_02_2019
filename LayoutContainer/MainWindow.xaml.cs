@@ -36,8 +36,6 @@ namespace LayoutContainer
             {
                 _reinigungsmodus = false;
             }), true);
-
-
             
         }
 

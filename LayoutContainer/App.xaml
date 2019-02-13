@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="/PresentationFramework.Luna;V3.0.0.0;31bf3856ad364e35;component\themes/luna.normalcolor.xaml" />-->
+                <ResourceDictionary Source="/PresentationFramework.Luna;V3.0.0.0;31bf3856ad364e35;component\themes/luna.normalcolor.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

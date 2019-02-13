@@ -10,8 +10,12 @@
         Title="MainWindow" Height="450" Width="800">
     <DockPanel Background="Yellow" LastChildFill="True">
         <!--Attached Property-->
-        <TextBlock FontSize="30" Padding="8" TextAlignment="Center"  
-                   DockPanel.Dock="Top" Background="Aqua">PersonenManager</TextBlock>
+        <TextBlock FontSize="30" Padding="8" TextAlignment="Center"
+                   DockPanel.Dock="Top" Background="Aqua">
+            <Bold>
+                 <Span Foreground="Red" FontFamily="Arial"><Underline>P</Underline></Span>ersonenManager
+            </Bold>
+        </TextBlock>
         <TextBlock FontSize="18" TextAlignment="Center" x:Name="textblockFooter" 
                    DockPanel.Dock="Bottom" Background="Aqua">Footer</TextBlock>
         <StackPanel Background="BlanchedAlmond">
@@ -69,7 +73,6 @@
                 <Button Click="OK_Button_Click" Width="100" Canvas.Right="10" Canvas.Bottom="30">OK</Button>
                 <Button Width="100" Canvas.Left="10" Canvas.Top="30">Abbrechen</Button>
             </Canvas>
-
         </Grid>
     </DockPanel>
 </Window>

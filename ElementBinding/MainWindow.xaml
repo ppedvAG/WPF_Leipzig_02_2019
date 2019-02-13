@@ -13,7 +13,9 @@
                 IsSnapToTickEnabled="True" x:Name="slider"/>
         <UniformGrid Columns="2">
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">OneWay:</TextBlock>
-            <TextBox Width="100" VerticalAlignment="Center" HorizontalAlignment="Center" 
+            <TextBox 
+                        Foreground="{Binding ElementName=slider,Path=Value,Converter={StaticResource doubleToBrush}}"
+                    Width="100" VerticalAlignment="Center" HorizontalAlignment="Center" 
                      Text="{Binding ElementName=slider,Path=Value,Mode=OneWay}"
                      />
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right">TwoWay, LostFocus:</TextBlock>
