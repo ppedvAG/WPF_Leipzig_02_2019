@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AusgelagerteResourcen", "Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTemplates", "DataTemplates\DataTemplates.csproj", "{AEAFE677-1815-4A2A-8229-8321255D0234}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiBinding", "MultiBinding\MultiBinding.csproj", "{3E835533-87F2-4935-AB23-35256546BDE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{AEAFE677-1815-4A2A-8229-8321255D0234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEAFE677-1815-4A2A-8229-8321255D0234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEAFE677-1815-4A2A-8229-8321255D0234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E835533-87F2-4935-AB23-35256546BDE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E835533-87F2-4935-AB23-35256546BDE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E835533-87F2-4935-AB23-35256546BDE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E835533-87F2-4935-AB23-35256546BDE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

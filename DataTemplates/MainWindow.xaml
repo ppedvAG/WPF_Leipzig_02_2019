@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataTemplates"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        x:Name="window"
+        Title="MainWindow" Height="600" Width="800">
+    <d:Window.DataContext>
+        <x:Array Type="{x:Type local:Flugzeug}">
+            <local:Flugzeug TypenName="A320" Typ="Passagier" Spannweite="38"  FotoUrl="https://store.x-plane.org/assets/images/files/peterhager/320neo/01.jpg" />
+            <local:Flugzeug TypenName="A330MRTT" Typ="Militär" Spannweite="60.3"  FotoUrl="https://www.ainonline.com/sites/default/files/styles/ain30_fullwidth_large_2x/public/uploads/2015/06/2013-09-23_a330mrtt_sau_clearance_f15_188.jpg" />
+        </x:Array>
+    </d:Window.DataContext>
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <StackPanel>
+            <Border BorderBrush="Black" BorderThickness="3" Padding="10" Margin="5" Background="Green">
+                <ListBox  MaxHeight="{Binding ElementName=window,Path=ActualHeight,Converter={StaticResource percentConverter},ConverterParameter=50}" x:Name="listbox"  ItemsSource="{Binding Mode=OneWay}" ItemTemplate="{StaticResource FlugzeugTemplate}"/>
+            </Border>
+
+            <Border>
+                <StackPanel>
+                    <TextBlock><Underline>Testausgaben:</Underline></TextBlock>
+                    <TextBlock>Name des 1. Flugzeuges: <Run Text="{Binding Path=[0].TypenName,Mode=OneWay}" /></TextBlock>
+                    <TextBlock>Typ des 1. Flugzeuges: <Run Text="{Binding Path=[0].Typ,Mode=OneWay}" /></TextBlock>
+                    <TextBlock>FotoURL des 1. Flugzeuges: <Run Text="{Binding Path=[0].FotoUrl,Mode=OneWay}" /></TextBlock>
+                    <TextBox Text="{Binding Path=[0].TypenName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="{Binding ElementName=listbox,Path=DataContext[0].Spannweite}" />
+                    <Button Click="Button_Click">Neu</Button>
+                </StackPanel>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="2" Padding="10" Margin="10" Background="BlanchedAlmond">
+                <Viewbox MaxHeight="200">
+                    <ContentPresenter Content="{Binding ElementName=listbox,Path=SelectedItem}" ContentTemplate="{StaticResource FlugzeugTemplate}" />
+                </Viewbox>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
 </Window>

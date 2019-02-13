@@ -4,6 +4,29 @@
              xmlns:local="clr-namespace:DataTemplates"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:EnumToEnumListConverter x:Key="enumConverter" />
+        <local:RelativeWidthConverter x:Key="percentConverter" />
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="Aqua" />
+        </Style>
+        <DataTemplate x:Key="FlugzeugTemplate" DataType="{x:Type local:Flugzeug}">
+            <DockPanel>
+                <Image Height="100" Source="{Binding FotoUrl}" DockPanel.Dock="Left" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock><Run Text="Typenname:"/></TextBlock>
+                        <TextBox Text="{Binding TypenName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock><Run Text="Spannweite:"/></TextBlock>
+                        <TextBox Text="{Binding Spannweite}" />
+                    </StackPanel>
+                    <ComboBox SelectedItem="{Binding Typ,Mode=TwoWay}" ItemsSource="{Binding Typ,Mode=OneTime,Converter={StaticResource enumConverter}}"    />
+                    <Button Click="Button_Click">Neue Url setzen</Button> 
+                </StackPanel>
+            </DockPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>
