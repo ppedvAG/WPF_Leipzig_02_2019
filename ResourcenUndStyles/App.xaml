@@ -12,10 +12,6 @@
             
             <!--Weitere lokale Resourcen-->
 
-            <Style TargetType="local:MainWindow" BasedOn="{StaticResource {x:Type Window}}">
-                
-            </Style>
-            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

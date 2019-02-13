@@ -47,7 +47,8 @@ namespace ResourcenUndStyles
                 string filename = item.Tag.ToString();
 
                 Application.Current.Resources.MergedDictionaries[1].Source = new Uri($"pack://siteOfOrigin:,,,/Styles/{filename}");
-               
+                new MainWindow().Show();
+                this.Close();
             }
         }
     }

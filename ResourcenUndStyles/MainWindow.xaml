@@ -16,7 +16,9 @@
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Foreground" Value="Red" />
         </Style>
-        
+
+        <Style TargetType="local:MainWindow" BasedOn="{StaticResource {x:Type Window}}" />
+
     </Window.Resources>
     <StackPanel>
         <Menu>
