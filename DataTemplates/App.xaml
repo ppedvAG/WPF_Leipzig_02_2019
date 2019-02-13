@@ -4,29 +4,66 @@
              xmlns:local="clr-namespace:DataTemplates"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!--Converter-->
         <local:EnumToEnumListConverter x:Key="enumConverter" />
         <local:RelativeWidthConverter x:Key="percentConverter" />
 
+        <!--Styles-->
         <Style TargetType="ListBoxItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Background" Value="Aqua" />
         </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="0 10 0 10" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <!--DataTemplates-->
         <DataTemplate x:Key="FlugzeugTemplate" DataType="{x:Type local:Flugzeug}">
-            <DockPanel>
-                <Image Height="100" Source="{Binding FotoUrl}" DockPanel.Dock="Left" />
-                <StackPanel>
+            <Border Background="Aqua" BorderBrush="Black" BorderThickness="2" Margin="5">
+                <DockPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock><Run Text="Typenname:"/></TextBlock>
-                        <TextBox Text="{Binding TypenName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Image Margin="10" Height="100" Width="200" Source="{Binding FotoUrl}" DockPanel.Dock="Left" />
+                        <Button Click="Button_Click">Neue Url setzen</Button>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock><Run Text="Spannweite:"/></TextBlock>
-                        <TextBox Text="{Binding Spannweite}" />
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock><Run Text="Typenname:"/></TextBlock>
+                            <TextBox Width="100" Text="{Binding TypenName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock><Run Text="Spannweite:"/></TextBlock>
+                            <TextBox Width="100" Text="{Binding Spannweite}" />
+                        </StackPanel>
+                        <ComboBox SelectedItem="{Binding Typ,Mode=TwoWay}" ItemsSource="{Binding Typ,Mode=OneTime,Converter={StaticResource enumConverter}}"    />
                     </StackPanel>
-                    <ComboBox SelectedItem="{Binding Typ,Mode=TwoWay}" ItemsSource="{Binding Typ,Mode=OneTime,Converter={StaticResource enumConverter}}"    />
-                    <Button Click="Button_Click">Neue Url setzen</Button> 
-                </StackPanel>
-            </DockPanel>
+                </DockPanel>
+            </Border>
         </DataTemplate>
+
+        <Style TargetType="ContentPresenter">
+            <Style.Triggers>
+                <Trigger Property="Content" Value="{x:Null}">
+                    <Setter Property="ContentTemplate" Value="{x:Null}" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="ContentTemplate" Value="{StaticResource FlugzeugTemplate}" />
+        </Style>
     </Application.Resources>
 </Application>

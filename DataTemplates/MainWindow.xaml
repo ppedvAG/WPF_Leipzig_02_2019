@@ -16,25 +16,27 @@
     <ScrollViewer VerticalScrollBarVisibility="Visible">
         <StackPanel>
             <Border BorderBrush="Black" BorderThickness="3" Padding="10" Margin="5" Background="Green">
-                <ListBox  MaxHeight="{Binding ElementName=window,Path=ActualHeight,Converter={StaticResource percentConverter},ConverterParameter=50}" x:Name="listbox"  ItemsSource="{Binding Mode=OneWay}" ItemTemplate="{StaticResource FlugzeugTemplate}"/>
+                <ListBox  MaxHeight="{Binding ElementName=window,Path=ActualHeight,Converter={StaticResource percentConverter},ConverterParameter=30}" 
+                          x:Name="listbox"  
+                          ItemsSource="{Binding Mode=OneWay}" 
+                          ItemTemplate="{StaticResource FlugzeugTemplate}"/>
             </Border>
+            <Button Click="Button_Click">Neues Flugzeug erstellen</Button>
 
-            <Border>
+            <Border Margin="10" BorderBrush="Black" BorderThickness="2" Background="Yellow" Padding="10">
                 <StackPanel>
-                    <TextBlock><Underline>Testausgaben:</Underline></TextBlock>
-                    <TextBlock>Name des 1. Flugzeuges: <Run Text="{Binding Path=[0].TypenName,Mode=OneWay}" /></TextBlock>
-                    <TextBlock>Typ des 1. Flugzeuges: <Run Text="{Binding Path=[0].Typ,Mode=OneWay}" /></TextBlock>
-                    <TextBlock>FotoURL des 1. Flugzeuges: <Run Text="{Binding Path=[0].FotoUrl,Mode=OneWay}" /></TextBlock>
-                    <TextBox Text="{Binding Path=[0].TypenName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Text="{Binding ElementName=listbox,Path=DataContext[0].Spannweite}" />
-                    <Button Click="Button_Click">Neu</Button>
+                    <TextBlock><Underline>Testausgaben fürs 1. Element in der Flugzeugliste:</Underline></TextBlock>
+                    <TextBlock>Typenname: <Run Text="{Binding Path=[0].TypenName,Mode=OneWay}" /></TextBlock>
+                    <TextBlock>Typ: <Run Text="{Binding Path=[0].Typ,Mode=OneWay}" /></TextBlock>
+                    <TextBlock>FotoURL: <Run Text="{Binding Path=[0].FotoUrl,Mode=OneWay}" /></TextBlock>
+                    <TextBox Width="100" HorizontalAlignment="Left" Margin="5" Text="{Binding Path=[0].TypenName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </Border>
 
             <Border BorderBrush="Black" BorderThickness="2" Padding="10" Margin="10" Background="BlanchedAlmond">
-                <Viewbox MaxHeight="200">
-                    <ContentPresenter Content="{Binding ElementName=listbox,Path=SelectedItem}" ContentTemplate="{StaticResource FlugzeugTemplate}" />
-                </Viewbox>
+                <!--<Viewbox MaxHeight="200">-->
+                    <ContentPresenter Content="{Binding ElementName=listbox,Path=SelectedItem}"  />
+                <!--</Viewbox>-->
             </Border>
         </StackPanel>
     </ScrollViewer>
