@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AEAFE677-1815-4A2A-8229-8321255D0234}</ProjectGuid>
+    <ProjectGuid>{FD5CFC47-6EAB-4C66-98E9-770D3326C812}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DataTemplates</RootNamespace>
-    <AssemblyName>DataTemplates</AssemblyName>
+    <RootNamespace>UserControls</RootNamespace>
+    <AssemblyName>UserControls</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,10 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="NotEqualConverter.cs" />
-    <Compile Include="RelativeWidthConverter.cs" />
-    <Compile Include="URLInput.xaml.cs">
-      <DependentUpon>URLInput.xaml</DependentUpon>
+    <Compile Include="RadioGroup.xaml.cs">
+      <DependentUpon>RadioGroup.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -68,13 +66,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EnumToEnumListConverter.cs" />
-    <Compile Include="Flugzeug.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="URLInput.xaml">
+    <Page Include="RadioGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

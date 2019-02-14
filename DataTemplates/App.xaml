@@ -7,6 +7,7 @@
         <!--Converter-->
         <local:EnumToEnumListConverter x:Key="enumConverter" />
         <local:RelativeWidthConverter x:Key="percentConverter" />
+        <local:NotEqualConverter x:Key="notEqual" />
 
         <!--Styles-->
         <Style TargetType="ListBoxItem">
@@ -59,11 +60,14 @@
 
         <Style TargetType="ContentPresenter">
             <Style.Triggers>
-                <Trigger Property="Content" Value="{x:Null}">
-                    <Setter Property="ContentTemplate" Value="{x:Null}" />
+                <!--if (Content == null)-->
+                <Trigger Property="Content" Value="{Binding Converter={StaticResource notEqual}}">
+                    <!--{-->
+                    <Setter Property="ContentTemplate" Value="{StaticResource FlugzeugTemplate}" />
+                    <!--}-->
                 </Trigger>
             </Style.Triggers>
-            <Setter Property="ContentTemplate" Value="{StaticResource FlugzeugTemplate}" />
+            <Setter Property="ContentTemplate" Value="{x:Null}" />
         </Style>
     </Application.Resources>
 </Application>

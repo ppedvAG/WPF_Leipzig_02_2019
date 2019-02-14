@@ -35,7 +35,7 @@
 
             <Border BorderBrush="Black" BorderThickness="2" Padding="10" Margin="10" Background="BlanchedAlmond">
                 <!--<Viewbox MaxHeight="200">-->
-                    <ContentPresenter Content="{Binding ElementName=listbox,Path=SelectedItem}"  />
+                    <ContentPresenter Content="{Binding ElementName=listbox,Path=SelectedItem}" />
                 <!--</Viewbox>-->
             </Border>
         </StackPanel>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="Validierung.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Validierung"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:Auto Name="Audi" />
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="!" FontSize="30" Foreground="Red" FontWeight="ExtraBold" />
+                            <AdornedElementPlaceholder  x:Name="adorner"  ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                            <TextBlock Text="{Binding ElementName=adorner,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ToolTip" Value="{Binding RelativeSource=, Path=(Validation.Errors)[0].ErrorContent}" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBox  
+            Grid.Row="2" x:Name="textbox" MinWidth="300" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBox.Text>
+                    <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:StringNotTooLongRule MaxLength="10" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Width="200" />
+        </StackPanel>
+        <TextBlock VerticalAlignment="Bottom" Text="{Binding ElementName=textbox,Path=(Validation.Errors)[0].ErrorContent}"></TextBlock>
+    </Grid>
+</Window>

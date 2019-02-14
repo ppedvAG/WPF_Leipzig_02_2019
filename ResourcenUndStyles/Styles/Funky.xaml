@@ -36,6 +36,10 @@
         <Setter Property="Background" Value="Beige" />
     </Style>
 
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="Beige" />
+    </Style>
+
     <!--Erbt von ButtonBase und fügt weiter Setter hinzu bzw. überschreibt die vererbten-->
     <Style TargetType="CheckBox" BasedOn="{StaticResource buttonBaseStyle}">
         <Setter Property="IsChecked" Value="True" />
