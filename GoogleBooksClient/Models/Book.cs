@@ -23,15 +23,15 @@ namespace GoogleBooksClient.Models
             set { SetValue(ref _description, value); }
         }
 
-        private DateTime _publisherDate;
-        public DateTime PublisherDate
+        private string _publisherDate;
+        public string PublisherDate
         {
             get { return _publisherDate; }
             set { SetValue(ref _publisherDate, value); }
         }
 
-        private double _price;
-        public double Price
+        private double? _price;
+        public double? Price
         {
             get { return _price; }
             set { SetValue(ref _price, value); }
@@ -51,7 +51,7 @@ namespace GoogleBooksClient.Models
             set { SetValue(ref _authors, value); }
         }
 
-        private bool _isFavorite;
+        private bool _isFavorite = false;
         public bool IsFavorite
         {
             get { return _isFavorite; }

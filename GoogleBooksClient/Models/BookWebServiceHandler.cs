@@ -21,15 +21,24 @@ namespace GoogleBooksClient.Models
 
             ObservableCollection<Book> books = new ObservableCollection<Book>();
 
+            if (apiResult == null || (apiResult != null && apiResult.items == null))
+                return new ObservableCollection<Book>();
+
             foreach (var item in apiResult.items)
             {
                 Book newBook = new Book();
                 newBook.Title = item.volumeInfo.title;
                 newBook.IsFavorite = false;
-                newBook.Price = item.saleInfo.listPrice.amount;
-                newBook.CoverURL = item.volumeInfo.imageLinks.smallThumbnail;
+                if(double.TryParse($"{item.saleInfo?.listPrice?.amount:0.00}", out double price))
+                {
+                    newBook.Price = price;
+
+                }
+
+                newBook.CoverURL = item.volumeInfo.imageLinks?.smallThumbnail;
                 newBook.Description = item.volumeInfo.description;
                 newBook.Authors = item.volumeInfo.authors;
+                newBook.PublisherDate = item.volumeInfo.publishedDate;
                 books.Add(newBook);
 
             }

@@ -17,7 +17,7 @@ namespace GoogleBooksClient.Helper
             if ((field != null && !field.Equals(value)) || (field == null && value != null))
             { 
                 field = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(propertyName)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

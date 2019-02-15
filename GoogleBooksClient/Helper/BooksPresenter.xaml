@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="GoogleBooksClient.Helper.BooksPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GoogleBooksClient.Helper"
+             xmlns:models="clr-namespace:GoogleBooksClient.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DataGrid   IsReadOnly="True" CanUserAddRows="False" Margin="10" x:Name="datagrid" ItemsSource="{Binding Books,Mode=OneWay}" AutoGenerateColumns="False">
+        <DataGrid.Columns>
+            <!--Titel-->
+            <DataGridTemplateColumn Header="Titel" Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        <TextBlock TextWrapping="Wrap" Text="{Binding Title,Mode=OneWay}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--Cover-->
+            <DataGridTemplateColumn Header="Cover" Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        <Image Height="100" Source="{Binding CoverURL,Mode=OneWay}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--Beschreibung-->
+            <DataGridTemplateColumn Header="Beschreibung" Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        <TextBlock Text="{Binding Description,Mode=OneWay}" Width="200" MaxHeight="30" TextWrapping="Wrap" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--Erscheinungsdatum-->
+            <DataGridTemplateColumn Header="Erscheinungsdatum" Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        <TextBlock Text="{Binding PublisherDate,Mode=OneWay}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--Preis-->
+            <DataGridTemplateColumn Header="Preis" Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        <TextBlock Text="{Binding Price,Mode=OneWay}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--Autoren-->
+            <DataGridTemplateColumn Header="Autoren" Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        <ItemsControl ItemsSource="{Binding Authors,Mode=OneWay}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <!--Favorit-->
+            <DataGridTemplateColumn Header="Favorit" Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        
+                        <!--Innerhalb vom DataTEmplate ist der DataContext das aktuelle Buch-->
+                        <Button x:Name="button"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" Content="&#xE734;" Padding="5" FontFamily="Segoe MDL2 Assets"  
+                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid},Path=DataContext.ButtonCommand}"
+                                CommandParameter="{Binding}"
+                                />
+                        
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsFavorite,Mode=OneWay}" Value="True">
+                                <Setter TargetName="button" Property="Content" Value="&#xE735;" />
+                                <Setter TargetName="button" Property="Background" Value="Green" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

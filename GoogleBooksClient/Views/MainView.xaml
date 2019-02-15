@@ -1,0 +1,33 @@
+﻿<Window x:Class="GoogleBooksClient.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GoogleBooksClient.Views"
+        xmlns:viewmodels="clr-namespace:GoogleBooksClient.ViewModels"
+        Closed="Window_Closed"
+        mc:Ignorable="d"
+        Title="MainView" Height="450" Width="800">
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
+    <DockPanel Background="Aqua">
+        <StackPanel DockPanel.Dock="Top">
+            <Menu>
+                <MenuItem Header="Datei">
+                    <MenuItem Header="Favoriten" Command="{Binding FavoriteCommand}" />
+                    <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
+                </MenuItem>
+            </Menu>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="100">
+                <TextBlock VerticalAlignment="Center">Titel:</TextBlock>
+                <TextBox VerticalAlignment="Center" Margin="10 0 10 0" Width="100" Text="{Binding SearchTerm,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                <!--http://modernicons.io/segoe-mdl2/cheatsheet/-->
+                <Button Padding="5" VerticalAlignment="Center" Content="&#xE71E;" 
+                        Command="{Binding SearchBooksCommand}"
+                        FontFamily="Segoe MDL2 Assets" />
+            </StackPanel>
+        </StackPanel>
+            <Frame x:Name="rootFrame" Background="Red" NavigationUIVisibility="Hidden" />
+    </DockPanel>
+</Window>
