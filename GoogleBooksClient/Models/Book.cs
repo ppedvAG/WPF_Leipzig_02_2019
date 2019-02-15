@@ -10,7 +10,6 @@ namespace GoogleBooksClient.Models
     public class Book : ModelBase
     {
         private string _title;
-
         public string Title
         {
             get { return _title; }
@@ -18,7 +17,6 @@ namespace GoogleBooksClient.Models
         }
 
         private string _description;
-
         public string Description
         {
             get { return _description; }
@@ -26,7 +24,6 @@ namespace GoogleBooksClient.Models
         }
 
         private DateTime _publisherDate;
-
         public DateTime PublisherDate
         {
             get { return _publisherDate; }
@@ -34,7 +31,6 @@ namespace GoogleBooksClient.Models
         }
 
         private double _price;
-
         public double Price
         {
             get { return _price; }
@@ -42,7 +38,6 @@ namespace GoogleBooksClient.Models
         }
 
         private string _covertURL;
-
         public string CoverURL
         {
             get { return _covertURL; }
@@ -50,7 +45,6 @@ namespace GoogleBooksClient.Models
         }
 
         private string[] _authors;
-
         public string[] Authors
         {
             get { return _authors; }
@@ -58,16 +52,11 @@ namespace GoogleBooksClient.Models
         }
 
         private bool _isFavorite;
-
         public bool IsFavorite
         {
             get { return _isFavorite; }
             set { SetValue(ref _isFavorite, value); }
         }
-
-
-
-
 
     }
 }
