@@ -5,121 +5,99 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataTablesInDataGrid"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:dummy="clr-namespace:DummyDataGrid;assembly=DummyDataGrid"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
     <UniformGrid Columns="2">
-        <DockPanel>
-            <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{Binding ElementName=datagrid,Path=RowHeaderWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=datagrid,Path=Columns[0].ActualWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=datagrid,Path=Columns[1].ActualWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=datagrid,Path=Columns[2].ActualWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=datagrid,Path=Columns[3].ActualWidth}" />
-                </Grid.ColumnDefinitions>
-
-                <Border Padding="3" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="3" Grid.Column="1">
-                    <TextBlock Text="Tage" TextAlignment="Center" />
-                </Border>
-                <Border Padding="3" BorderBrush="Black" BorderThickness="1" Grid.Column="4">
-                    <TextBlock Text="Summe" TextAlignment="Center" />
-                </Border>
-            </Grid>
-            <DataGrid CanUserAddRows="False" x:Name="datagrid" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Tag 0">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding [0],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Tag 1">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding [1],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Tag 2">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding [2],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Summe">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox IsReadOnly="True">
-                                    <TextBox.Text>
-                                        <MultiBinding Mode="OneWay" Converter="{StaticResource summeConverter}">
-                                            <Binding Path="[0]" Mode="OneWay" />
-                                            <Binding Path="[1]" Mode="OneWay" />
-                                            <Binding Path="[2]" Mode="OneWay" />
-                                        </MultiBinding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
+       
 
 
-        <DataGrid x:Name="datagrid2" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Name">
+        <local:SectionizedDataGrid HeadersVisibility="All" x:Name="datagrid2"  AutoGenerateColumns="False" HorizontalAlignment="Stretch">
+            <local:SectionizedDataGrid.MetaColumns>
+                <local:MetaColumn Von="0" Bis="3" Name="Tage" />
+                <local:MetaColumn Von="4" Bis="4" Name="Sonstiges" />
+            </local:SectionizedDataGrid.MetaColumns>
+            <local:SectionizedDataGrid.Columns>
+                <DataGridTemplateColumn Header="Name" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Januar">
+                <DataGridTemplateColumn Header="Januar" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Januar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Februar">
+                <DataGridTemplateColumn Header="Februar" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Februar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="März">
+                <DataGridTemplateColumn Header="März" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding März,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Summe">
+                <DataGridTemplateColumn Header="Summe" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Summe,Mode=OneWay}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+            </local:SectionizedDataGrid.Columns>
+        </local:SectionizedDataGrid>
+
+        <DataGrid CanUserAddRows="False" HeadersVisibility="All" x:Name="datagrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Tag 0" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding [0],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Tag 1" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding [1],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Tag 2" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding [2],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Summe" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox IsReadOnly="True">
+                                <TextBox.Text>
+                                    <MultiBinding Mode="OneWay" Converter="{StaticResource summeConverter}">
+                                        <Binding Path="[0]" Mode="OneWay" />
+                                        <Binding Path="[1]" Mode="OneWay" />
+                                        <Binding Path="[2]" Mode="OneWay" />
+                                    </MultiBinding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <local:SectionizedDataGrid Background="Red">
-            <local:SectionizedDataGrid.Columns>
-                <DataGridTextColumn Header="1" />
-                <DataGridTextColumn Header="2" />
-                <DataGridTextColumn Header="3" />
-                <DataGridTextColumn Header="4" />
-            </local:SectionizedDataGrid.Columns>
-
-            <system:String>Test</system:String>
-            <system:String>Test</system:String>
-            <system:String>Test</system:String>
-             
-        </local:SectionizedDataGrid>
     </UniformGrid>
 </Window>

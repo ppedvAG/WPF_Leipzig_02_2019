@@ -22,7 +22,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="ToolTip" Value="{Binding RelativeSource=, Path=(Validation.Errors)[0].ErrorContent}" />
         </Style>
     </Window.Resources>
     <Grid>
@@ -37,7 +36,6 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Width="200" />
         </StackPanel>
         <TextBlock VerticalAlignment="Bottom" Text="{Binding ElementName=textbox,Path=(Validation.Errors)[0].ErrorContent}"></TextBlock>
     </Grid>

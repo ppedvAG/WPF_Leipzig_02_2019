@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoogleBooksClient.Helper
+namespace GoogleBooksClient.Models
 {
     public class FavoritenManager
     {
@@ -20,8 +20,6 @@ namespace GoogleBooksClient.Helper
 
         static FavoritenManager()
         {
-            //TODO: Evtl. aus Datei laden
-
             if (File.Exists(FileName))
             {
                 string json = File.ReadAllText(FileName);
@@ -31,7 +29,6 @@ namespace GoogleBooksClient.Helper
             {
                 FavoriteBooks = new ObservableCollection<Book>();
             }
-
         }
 
         public static bool AddToFavorites(Book book)
@@ -54,6 +51,17 @@ namespace GoogleBooksClient.Helper
             book.IsFavorite = false;
             FavoriteBooks.Remove(bookToDelete);
             return true;
+        }
+
+        public static void CheckBooksForFavorites(List<Book> books)
+        {
+            foreach (var book in books)
+            {
+                if(FavoriteBooks.Any(b => book.Title == b.Title))
+                {
+                    book.IsFavorite = true;
+                }
+            }
         }
 
         public static void SaveFavorites()

@@ -7,6 +7,37 @@
              xmlns:models="clr-namespace:GoogleBooksClient.Models"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                <Setter Property="Foreground" Value="#FF838383"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <DataGrid   IsReadOnly="True" CanUserAddRows="False" Margin="10" x:Name="datagrid" ItemsSource="{Binding Books,Mode=OneWay}" AutoGenerateColumns="False">
         <DataGrid.Columns>
             <!--Titel-->
@@ -61,20 +92,50 @@
             <DataGridTemplateColumn Header="Favorit" Width="*">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type models:Book}">
-                        
+
                         <!--Innerhalb vom DataTEmplate ist der DataContext das aktuelle Buch-->
                         <Button x:Name="button"
-                                VerticalAlignment="Center" HorizontalAlignment="Center" Content="&#xE734;" Padding="5" FontFamily="Segoe MDL2 Assets"  
+                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="&#xE734;" Padding="5" FontFamily="Segoe MDL2 Assets"  
                                 Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid},Path=DataContext.ButtonCommand}"
-                                CommandParameter="{Binding}"
-                                />
-                        
+                                CommandParameter="{Binding}">
+                            <Button.Background>
+                                <LinearGradientBrush>
+                                    <GradientStop x:Name="buttonBrush" Color="White" Offset="0.6" />
+                                    <GradientStop Color="White" Offset="0.7" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding IsFavorite,Mode=OneWay}" Value="True">
+                                <!--False -> True-->
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="buttonBrush"
+                                                Storyboard.TargetProperty="Color"
+                                                To="Green" Duration="0:0:0.500"
+                                                />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <!-- True -> False -->
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="buttonBrush"
+                                                Storyboard.TargetProperty="Color"
+                                                To="White" Duration="0:0:0.500"
+                                                />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+
                                 <Setter TargetName="button" Property="Content" Value="&#xE735;" />
-                                <Setter TargetName="button" Property="Background" Value="Green" />
                             </DataTrigger>
                         </DataTemplate.Triggers>
+                        
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

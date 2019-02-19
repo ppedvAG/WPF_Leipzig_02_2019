@@ -29,8 +29,5 @@
             <Slider x:Name="sliderBlue" />
             <TextBlock Text="{Binding ElementName=window,Path=Background}"></TextBlock>
         </StackPanel>
-        <Grid Background="{x:Null}">
-            <Button HorizontalAlignment="Center">asdas</Button>
-        </Grid>
     </Grid>
 </Window>

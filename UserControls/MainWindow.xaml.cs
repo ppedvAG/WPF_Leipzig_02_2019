@@ -41,21 +41,20 @@ namespace UserControls
 
     public class Person : INotifyPropertyChanged
     {
-        private Kontaktarten _kontaktart;
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        private Kontaktarten _kontaktart;
         public Kontaktarten Kontaktart
         {
             get => _kontaktart;
             set
             {
                 _kontaktart = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Kontaktart)));
             }
         }
 
         private Farben _lieblingsfarbe;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public Farben Lieblingsfarbe
         {
             get { return _lieblingsfarbe; }
@@ -63,7 +62,5 @@ namespace UserControls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Lieblingsfarbe)));
             }
         }
-
-
     }
 }

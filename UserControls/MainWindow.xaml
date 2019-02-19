@@ -9,9 +9,7 @@
     <Window.DataContext>
         <local:Person Kontaktart="Fax" Lieblingsfarbe="Yellow" />
     </Window.DataContext>
-    <Window.Resources>
-        
-    </Window.Resources>
+    
     <Grid>
         <local:RadioGroup HorizontalAlignment="Center" VerticalAlignment="Top" EnumType="{x:Type local:Farben}"
                           Selected="{Binding Lieblingsfarbe,Mode=TwoWay}"

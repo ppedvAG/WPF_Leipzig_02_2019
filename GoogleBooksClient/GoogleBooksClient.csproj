@@ -63,7 +63,7 @@
     </Compile>
     <Compile Include="Helper\DelegateCommand.cs" />
     <Compile Include="Helper\DummyConverter.cs" />
-    <Compile Include="Helper\FavoritenManager.cs" />
+    <Compile Include="Models\FavoritenManager.cs" />
     <Compile Include="Helper\ModelBase.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookWebServiceHandler.cs" />

@@ -23,11 +23,18 @@
                 <TextBlock VerticalAlignment="Center">Titel:</TextBlock>
                 <TextBox VerticalAlignment="Center" Margin="10 0 10 0" Width="100" Text="{Binding SearchTerm,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                 <!--http://modernicons.io/segoe-mdl2/cheatsheet/-->
-                <Button Padding="5" VerticalAlignment="Center" Content="&#xE71E;" 
+                <Button 
+                    Padding="5" VerticalAlignment="Center" Content="&#xE71E;" 
                         Command="{Binding SearchBooksCommand}"
                         FontFamily="Segoe MDL2 Assets" />
+
+
             </StackPanel>
         </StackPanel>
-            <Frame x:Name="rootFrame" Background="Red" NavigationUIVisibility="Hidden" />
+        <Frame x:Name="rootFrame" Background="Red" NavigationUIVisibility="Hidden" >
+            <Frame.RenderTransform>
+                <TranslateTransform x:Name="frameTransform" X="0"  />
+            </Frame.RenderTransform>
+        </Frame>
     </DockPanel>
 </Window>

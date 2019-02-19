@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -47,17 +48,80 @@ namespace DataTablesInDataGrid
     /// </summary>
     public class SectionizedDataGrid : DataGrid
     {
-        public ObservableCollection<MetaColumnm> MetaColumns
+        public ObservableCollection<MetaColumn> MetaColumns
         {
-            get { return (ObservableCollection<MetaColumnm>)GetValue(MetaColumnsProperty); }
-            set { SetValue(MetaColumnsProperty, value); }
+            get { return (ObservableCollection<MetaColumn>)GetValue(MetaColumnsProperty); }
         }
 
         // Using a DependencyProperty as the backing store for MetaColumns.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MetaColumnsProperty =
-            DependencyProperty.Register("MetaColumns", typeof(ObservableCollection<MetaColumnm>), typeof(SectionizedDataGrid), new PropertyMetadata(null));
+        public static readonly DependencyPropertyKey MetaColumnsPropertyKey =
+            DependencyProperty.RegisterReadOnly("MetaColumns", typeof(ObservableCollection<MetaColumn>), typeof(SectionizedDataGrid), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty MetaColumnsProperty = MetaColumnsPropertyKey.DependencyProperty;
 
+        public SectionizedDataGrid()
+        {
+            this.SizeChanged += MainGrid_SizeChanged;
+            SetValue(MetaColumnsPropertyKey, new ObservableCollection<MetaColumn>());
+        }
+
+        private async void MainGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //Das SizeChanged-Event feuert zu zeitig, erst ca. 1 Sekunde danach
+            //sind die Datagrid-Columns neu gezeichnet und geben den korrekten Wert für ActualWidth zurück
+            //TODO: Event finden, was erst gefeuert wird, nachdem die Spaltenbreiten fertig berechnet wurden
+            await Task.Delay(1000);
+            DrawMetaColumns();
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.Property.Name == nameof(CellsPanelHorizontalOffset))
+            {
+                DrawMetaColumns();
+            }
+            base.OnPropertyChanged(e);
+        }
+
+        public void DrawMetaColumns()
+        {
+            SectionizedDataGrid sgrid = this;
+            ScrollViewer viewer = sgrid.GetTemplateChild("DG_ScrollViewer") as ScrollViewer;
+
+            Grid grid = viewer.Template.FindName("metaHeaders", viewer) as Grid;
+            if (grid == null)
+            {
+                return;
+            }
+
+            grid.Margin = new Thickness(sgrid.CellsPanelHorizontalOffset, 0, 0, 0);
+
+            grid.Children.Clear();
+            grid.ColumnDefinitions.Clear();
+            foreach (var column in sgrid.Columns)
+            {
+                //ermittle die Anzahl und Breite der MetaGrid-Spalten anhand der ActualWidth jeder Spalte im DataGrid
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(column.ActualWidth) });
+            }
+            foreach (MetaColumn item in sgrid.MetaColumns)
+            {
+                Border newBorder = new Border
+                {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1)
+                };
+                TextBlock newMetaHeader = new TextBlock
+                {
+                    Text = item.Name,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                newBorder.Child = newMetaHeader;
+                Grid.SetColumn(newBorder, item.Von);
+                Grid.SetColumnSpan(newBorder, item.Span);
+                grid.Children.Add(newBorder);
+            }
+        }
 
         static SectionizedDataGrid()
         {
@@ -65,17 +129,24 @@ namespace DataTablesInDataGrid
         }
     }
 
-    public class MetaColumnm
+    public class MetaColumn
     {
-        public MetaColumnm(int von, int bis, string name)
+        public int Von { get; set; }
+        public int Bis { get; set; }
+        public string Name { get; set; }
+        public int Span => Bis - Von + 1;
+
+
+        public MetaColumn(int von, int bis, string name)
         {
             Von = von;
             Bis = bis;
             Name = name;
         }
 
-        public int Von { get; set; }
-        public int Bis { get; set; }
-        public string Name { get; set; }
+        public MetaColumn()
+        {
+
+        }
     }
 }

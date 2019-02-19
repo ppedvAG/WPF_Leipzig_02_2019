@@ -17,6 +17,8 @@ namespace GoogleBooksClient.ViewModels
         //Fody: automatisches PropertyChanged
 
         public event EventHandler CloseApplication;
+        public event EventHandler PageChanged;
+        public event EventHandler RemovePage;
 
         private string _searchTerm;
         public string SearchTerm
@@ -60,17 +62,20 @@ namespace GoogleBooksClient.ViewModels
 
         public async void SearchBooks()
         {
+            RemovePage.Invoke(this, EventArgs.Empty);
             ObservableCollection<Book> books = await BookWebServiceHandler.SearchBooksAsync(SearchTerm);
             if(books.Count == 0)
             {
                 MessageBox.Show("Keine Treffer!");
+                PageChanged?.Invoke(this, EventArgs.Empty);
                 return;
             }
-            //TODO: nächste Page laden
+            //nächste Page laden
             BooksResultView view = new BooksResultView();
             BooksResultViewModel model = new BooksResultViewModel(books);
             view.DataContext = model;
             RootFrame.Navigate(view);
+            PageChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

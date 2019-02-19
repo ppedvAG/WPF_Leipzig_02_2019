@@ -13,36 +13,42 @@ namespace GoogleBooksClient.Models
     {
         public static async Task<ObservableCollection<Book>> SearchBooksAsync(string searchTerm)
         {
-            //TODO: Exception-Handling
-            HttpClient client = new HttpClient();
-            string json = await client.GetStringAsync($"https://www.googleapis.com/books/v1/volumes?q={searchTerm}");
-
-            var apiResult = JsonConvert.DeserializeObject<GoogleBooksAPIResult>(json);
-
-            ObservableCollection<Book> books = new ObservableCollection<Book>();
-
-            if (apiResult == null || (apiResult != null && apiResult.items == null))
-                return new ObservableCollection<Book>();
-
-            foreach (var item in apiResult.items)
+            try
             {
-                Book newBook = new Book();
-                newBook.Title = item.volumeInfo.title;
-                newBook.IsFavorite = false;
-                if(double.TryParse($"{item.saleInfo?.listPrice?.amount:0.00}", out double price))
+                HttpClient client = new HttpClient();
+                string json = await client.GetStringAsync($"https://www.googleapis.com/books/v1/volumes?q={searchTerm}");
+
+                var apiResult = JsonConvert.DeserializeObject<GoogleBooksAPIResult>(json);
+
+                ObservableCollection<Book> books = new ObservableCollection<Book>();
+
+                if (apiResult == null || (apiResult != null && apiResult.items == null))
+                    return new ObservableCollection<Book>();
+
+                foreach (var item in apiResult.items)
                 {
-                    newBook.Price = price;
+                    Book newBook = new Book();
+                    newBook.Title = item.volumeInfo.title;
+                    newBook.IsFavorite = false;
+                    if (double.TryParse($"{item.saleInfo?.listPrice?.amount:0.00}", out double price))
+                    {
+                        newBook.Price = price;
 
+                    }
+
+                    newBook.CoverURL = item.volumeInfo.imageLinks?.smallThumbnail;
+                    newBook.Description = item.volumeInfo.description;
+                    newBook.Authors = item.volumeInfo.authors;
+                    newBook.PublisherDate = item.volumeInfo.publishedDate;
+                    books.Add(newBook);
                 }
-
-                newBook.CoverURL = item.volumeInfo.imageLinks?.smallThumbnail;
-                newBook.Description = item.volumeInfo.description;
-                newBook.Authors = item.volumeInfo.authors;
-                newBook.PublisherDate = item.volumeInfo.publishedDate;
-                books.Add(newBook);
-
+                FavoritenManager.CheckBooksForFavorites(books.ToList());
+                return books;
             }
-            return books;
+            catch (Exception)
+            {
+                return new ObservableCollection<Book>();
+            }
         }
     }
 }

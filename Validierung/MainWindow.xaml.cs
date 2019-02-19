@@ -23,8 +23,6 @@ namespace Validierung
         public MainWindow()
         {
             InitializeComponent();
-            LogicalTreeHelper.Get
-            Validation.GetHasError(textbox)
         }
     }
 }
